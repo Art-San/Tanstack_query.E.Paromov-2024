@@ -2,18 +2,19 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { todoListApi } from './api'
 import { useState } from 'react'
 
+// https://www.youtube.com/watch?v=K5-a-wjURrc&t=2523s
 // 22:32
-// 42:03
-
+// 42:03 -- с этой может чуть дальше разбор isPending, isFetching, isLoading, status, fetchStatus
+// 1:03:18
 export function TodoList() {
 	const [page, setPage] = useState(1)
 	const [enabled, setEnabled] = useState(false)
 	const {
 		data: todoItems,
 		error,
-		isPending,
+		// isPending,
 		// isFetching,
-		// isLoading,
+		isLoading,
 		status,
 		fetchStatus,
 		isPlaceholderData,
@@ -25,10 +26,10 @@ export function TodoList() {
 		enabled: enabled, // отключает включает запросник
 		// initialData: // если нужно наполнить данными к примеру из localStorage, initialData попадает в кеш, для сервер сайтрендеренга
 	})
-	console.log(10, 'status', status)
-	console.log(11, 'fetchStatus', fetchStatus)
+	console.log(10, { status, fetchStatus })
 
-	if (isPending) {
+	if (isLoading) {
+		// isLoading нет данных но запрос идет
 		return <div className="">...Loading</div>
 	}
 	if (error) {
@@ -50,7 +51,7 @@ export function TodoList() {
 				</div>
 				<div className="flex gap-1">
 					<h4>Всего страниц:</h4>
-					{todoItems.pages}
+					{todoItems?.pages}
 				</div>
 			</div>
 			<div
@@ -58,7 +59,7 @@ export function TodoList() {
 					'flex flex-col gap-4' + (isPlaceholderData ? ' opacity-30' : '')
 				} // isFetching, заменили на isPlaceholderData, но его используем тогда когда включ placeholderData: keepPreviousData
 			>
-				{todoItems.data.map((todo) => {
+				{todoItems?.data.map((todo) => {
 					return (
 						<div className="border border-slate-300 rounded p-3" key={todo.id}>
 							<p className={isPlaceholderData ? ' text-yellow-400' : ''}>
@@ -76,7 +77,7 @@ export function TodoList() {
 					prev
 				</button>
 				<button
-					onClick={() => setPage((p) => Math.min(p + 1, todoItems.pages))}
+					onClick={() => setPage((p) => Math.min(p + 1, todoItems?.pages ?? 1))}
 					className="p-3 rounded border border-teal-500"
 				>
 					next
