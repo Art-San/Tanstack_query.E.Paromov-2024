@@ -3,6 +3,7 @@ import { todoListApi } from './api'
 import { useState } from 'react'
 
 // https://www.youtube.com/watch?v=K5-a-wjURrc&t=2523s
+// https://www.youtube.com/watch?v=K5-a-wjURrc&t=2523s
 // 22:32
 // 42:03 -- с этой может чуть дальше разбор isPending, isFetching, isLoading, status, fetchStatus
 // 1:03:18
