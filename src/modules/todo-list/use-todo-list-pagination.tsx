@@ -8,7 +8,7 @@ export function useTodoListPagination(page: number, enabled: boolean) {
 		isLoading,
 		isPlaceholderData,
 	} = useQuery({
-		...todoListApi.getTodoListQueryOptions({ page }),
+		...todoListApi.getTodoListPagQueryOptions({ page }),
 		enabled: enabled, // отключает включает запросник
 		// placeholderData: { data: [] }, // так же можно что более сложное placeholderData: () =>  data: []
 		placeholderData: keepPreviousData, // а можно из библиотеки keepPreviousData, показываются предыдущие данные пока не появятся новые
