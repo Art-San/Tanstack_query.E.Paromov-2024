@@ -1,5 +1,6 @@
 // api-instance.ts  поместили в shared/api так как этот модуль переиспользуемый
 
+// Вариант 2
 const BASE_URL = 'http://localhost:3000'
 
 class ApiError extends Error {

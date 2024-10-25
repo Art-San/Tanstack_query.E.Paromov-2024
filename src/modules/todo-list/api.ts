@@ -20,16 +20,6 @@ export type TodoDto = {
 }
 
 export const todoListApi = {
-	getTodoList: (
-		{ page }: { page: number },
-		{ signal }: { signal: AbortSignal }
-	) => {
-		// Чел зашел а затем резко  вышел то AbortSignal отменит запрос
-		return fetch(`${BASE_URL}/tasks?_page=${page}&_per_page=5`, {
-			signal,
-		}).then((res) => res.json() as Promise<PaginatedResult<TodoDto>>)
-	},
-
 	getTodoListQueryOptions: ({ page }: { page: number }) => {
 		return queryOptions({
 			queryKey: ['tasks', 'list', { page }],
