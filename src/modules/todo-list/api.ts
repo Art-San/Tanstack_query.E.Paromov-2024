@@ -20,15 +20,6 @@ export type TodoDto = {
 }
 
 export const todoListApi = {
-	getTodoList: (
-		{ page }: { page: number },
-		{ signal }: { signal: AbortSignal }
-	) => {
-		// Чел зашел а затем резко  вышел то AbortSignal отменит запрос
-		return fetch(`${BASE_URL}/tasks?_page=${page}&_per_page=5`, {
-			signal,
-		}).then((res) => res.json() as Promise<PaginatedResult<TodoDto>>)
-	},
 	getTodoListQueryOptions: ({ page }: { page: number }) => {
 		return queryOptions({
 			queryKey: ['tasks', 'list', { page }],
@@ -39,21 +30,19 @@ export const todoListApi = {
 						signal: meta.signal,
 					}
 				),
-			// queryFn: jsonApiInstance(`/tasks?_page=${page}&_per_page=5`), // первый вариант
 		})
 	},
 	getTodoListInfinityQueryOptions: () => {
 		return infiniteQueryOptions({
 			queryKey: ['tasks', 'list'],
-			// queryFn: (meta) =>
-			// 	jsonApiInstance<PaginatedResult<TodoDto>>(
-			// 		`/tasks?_page=${meta.pageParam}&_per_page=5`,
-			// 		{
-			// 			signal: meta.signal,
-			// 		}
-			// 	),
 			queryFn: (meta) =>
-				todoListApi.getTodoList({ page: meta.pageParam }, meta),
+				jsonApiInstance<PaginatedResult<TodoDto>>(
+					`/tasks?_page=${meta.pageParam}&_per_page=10`,
+					{
+						signal: meta.signal,
+					}
+				),
+
 			initialPageParam: 1,
 			getNextPageParam: (res) => res.next,
 			select: (result) => result.pages.flatMap((page) => page.data),

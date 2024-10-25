@@ -1,30 +1,15 @@
-import { useQuery, keepPreviousData } from '@tanstack/react-query'
-import { todoListApi } from './api'
 import { useState } from 'react'
+import { useTodoListPagination } from './use-todo-list-pagination'
 
 // https://www.youtube.com/watch?v=K5-a-wjURrc&t=2523s
 
-// 22:32
-// 42:03 -- с этой может чуть дальше разбор isPending, isFetching, isLoading, status, fetchStatus
-// 1:03:18
-// 1:23:58
-export function TodoList() {
+export function TodoListPagination() {
 	const [page, setPage] = useState(1)
 	const [enabled, setEnabled] = useState(false)
 
-	const {
-		data: todoItems,
-		error,
-		isLoading,
-		isPlaceholderData,
-	} = useQuery({
-		...todoListApi.getTodoListQueryOptions({ page }),
-		enabled: enabled, // отключает включает запросник
-		// placeholderData: { data: [] }, // так же можно что более сложное placeholderData: () =>  data: []
-		placeholderData: keepPreviousData, // а можно из библиотеки keepPreviousData, показываются предыдущие данные пока не появятся новые
-	})
+	const { todoItems, error, isLoading, isPlaceholderData } =
+		useTodoListPagination(page, enabled)
 
-	console.log(14, todoItems?.data)
 	if (isLoading) {
 		// isLoading нет данных но запрос идет
 		return <div className="">...Loading</div>
