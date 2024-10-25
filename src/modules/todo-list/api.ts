@@ -22,7 +22,7 @@ export const todoListApi = {
 		{ signal }: { signal: AbortSignal }
 	) => {
 		// Чел зашел а затем резко  вышел то AbortSignal отменит запрос
-		return fetch(`${BASE_URL}/tasks?_page=${page}&_per_page=5`, {
+		return fetch(`${BASE_URL}/tasks?_page=${page}&_per_page=10`, {
 			signal,
 		}).then((res) => res.json() as Promise<PaginatedResult<TodoDto>>)
 	},
