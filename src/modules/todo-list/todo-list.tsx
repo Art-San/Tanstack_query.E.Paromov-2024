@@ -103,7 +103,7 @@ export function TodoList() {
 	const cursorRef = useIntersection(() => {
 		fetchNextPage()
 	})
-	const [enabled, setEnabled] = useState(false)
+	const [enabled, setEnabled] = useState(true)
 	const {
 		data: todoItems,
 		error,
