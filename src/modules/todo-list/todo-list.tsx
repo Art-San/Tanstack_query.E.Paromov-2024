@@ -1,39 +1,20 @@
 // https://www.youtube.com/watch?v=K5-a-wjURrc&t=2523s
 
-import { nanoid } from 'nanoid'
-import { todoListApi } from './api'
-import { useTodoListInfiniteScroll } from './use-todo-list-infinite-scroll'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTodoList } from './use-todo-list'
+import { useCreateTodo } from './use-create-todo'
 
 // 22:32
 // 42:03 -- с этой может чуть дальше разбор isPending, isFetching, isLoading, status, fetchStatus
 // 1:03:18
 // 1:23:58
 // 1:44:25
+// 1:54:30
 
 export function TodoList() {
 	const { error, todoItems, isLoading } = useTodoList()
 
-	const createTodoMutation = useMutation({
-		mutationFn: todoListApi.createTodo,
-	})
-
-	const handleCreate = (e: React.FocusEvent<HTMLFormElement>) => {
-		const formData = new FormData(e.currentTarget)
-
-		const text = String(formData.get('text') ?? '')
-
-		// todoListApi.createTodo()
-		createTodoMutation.mutate({
-			id: nanoid(),
-			done: false,
-			text: text,
-			userId: '1',
-		}) // не выбрасывает ошибку при не удаче
-		// createTodoMutation.mutateAsync() // эта выбрасывает ошибки при не удаче, надо обрабатывать ошибки, надо оборачивать trycatch чаще всего это не нужно
-		e.currentTarget.reset()
-	}
+	// const { handleCreate, isPending } = useCreateTodo()
+	const createTodo = useCreateTodo()
 
 	if (isLoading) {
 		// isLoading нет данных но запрос идет
@@ -49,13 +30,22 @@ export function TodoList() {
 				Todo List Infinite Scroll
 			</h1>
 
-			<form onSubmit={handleCreate} className=" flex gap-2 mb-5" action="">
+			<form
+				onSubmit={createTodo.handleCreate}
+				className=" flex gap-2 mb-5"
+				action=""
+			>
 				<input
 					className=" rounded  p-2 border border-teal-500"
 					type="text"
 					name="text"
 				/>
-				<button className=" rounded p-2 border border-teal-500">Создать</button>
+				<button
+					disabled={createTodo.isPending}
+					className=" rounded p-2 border border-teal-500 disabled:opacity-50 "
+				>
+					Создать
+				</button>
 			</form>
 
 			<div className={'flex flex-col gap-4'}>
