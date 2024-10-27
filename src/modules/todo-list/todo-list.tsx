@@ -2,6 +2,7 @@
 
 import { useTodoList } from './use-todo-list'
 import { useCreateTodo } from './use-create-todo'
+import { useDeleteTodo } from './use-delete-todo'
 
 // 22:32
 // 42:03 -- с этой может чуть дальше разбор isPending, isFetching, isLoading, status, fetchStatus
@@ -15,6 +16,7 @@ export function TodoList() {
 
 	// const { handleCreate, isPending } = useCreateTodo()
 	const createTodo = useCreateTodo()
+	const deleteTodo = useDeleteTodo()
 
 	if (isLoading) {
 		// isLoading нет данных но запрос идет
@@ -51,8 +53,19 @@ export function TodoList() {
 			<div className={'flex flex-col gap-4'}>
 				{todoItems?.map((todo) => {
 					return (
-						<div className="border border-slate-300 rounded p-3" key={todo.id}>
+						<div
+							className="flex justify-between border border-slate-300 rounded p-3"
+							key={todo.id}
+						>
 							{todo.text}
+							<button
+								disabled={deleteTodo.getIsPending(todo.id)}
+								// disabled={deleteTodo.isPending}
+								onClick={() => deleteTodo.handleDelete(todo.id)}
+								className=" text-rose-500 font-bold disabled:opacity-30"
+							>
+								удал
+							</button>
 						</div>
 					)
 				})}

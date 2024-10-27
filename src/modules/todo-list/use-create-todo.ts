@@ -16,10 +16,10 @@ export function useCreateTodo() {
 		onError(error) {
 			console.log(2, 'срабатывает при ошибке', error)
 		},
-		onSettled: (data, error) => {
+		onSettled: async (data, error) => {
 			console.log('Этот код будет выполнен как при успехе, так и при ошибке')
 			// паромов посоветовал invalidateQueries делать в onSettled
-			queryClient.invalidateQueries({
+			await queryClient.invalidateQueries({
 				// invalidateQueries помечает все запросы подходящие по ключу в stale (устаревшие)
 				queryKey: ['tasks', 'list'],
 			})
