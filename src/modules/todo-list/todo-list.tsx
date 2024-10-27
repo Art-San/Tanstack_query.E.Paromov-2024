@@ -4,6 +4,7 @@ import { useTodoList } from './use-todo-list'
 import { useCreateTodo } from './use-create-todo'
 import { useDeleteTodo } from './use-delete-todo'
 import { useToggleTodo } from './use-toggle-todo'
+import { useUser } from '../auth/use-user'
 
 // 22:32
 // 42:03 -- с этой может чуть дальше разбор isPending, isFetching, isLoading, status, fetchStatus
@@ -13,8 +14,10 @@ import { useToggleTodo } from './use-toggle-todo'
 // 1:54:30
 // 2:12:26
 // 2:25:00 Редакс
+// 2:45:00
 
 export function TodoList() {
+	const { data } = useUser()
 	const { error, todoItems, isLoading } = useTodoList()
 
 	// const { handleCreate, isPending } = useCreateTodo()
@@ -33,7 +36,7 @@ export function TodoList() {
 	return (
 		<div className="p-5 mx-auto max-w-[1200px] mt-10  ">
 			<h1 className="text-3xl font-bold underline mb-5">
-				Todo List Infinite Scroll
+				Todo List. $ {data?.login}
 			</h1>
 
 			<form
