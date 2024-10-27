@@ -8,27 +8,37 @@ export function useToggleTodo() {
 		mutationFn: todoListApi.updateTodo,
 		// Когда вызывается mutate:
 		onMutate: async (newTodo) => {
-			// Отменить все исходящие повторные загрузки
-			// (чтобы они не перезаписали наше оптимистичное обновление)
-			await queryClient.cancelQueries({ queryKey: ['todos'] })
+			await queryClient.cancelQueries({ queryKey: [todoListApi.baseKey] }) // Отменить все исходящие повторные загрузки // (чтобы они не перезаписали наше оптимистичное обновление)
 
 			// Снимок предыдущего значения
-			const previousTodos = queryClient.getQueryData(['todos'])
+			const previousTodos = queryClient.getQueryData(
+				todoListApi.getTodoListQueryOptions().queryKey
+			)
 
-			// Оптимистично обновиться до нового значения
-			queryClient.setQueryData(['todos'], (old) => [...old, newTodo])
+			// Оптимистично обновиться до нового значения // ПОМЕНЯЛИ кеш
+			queryClient.setQueryData(
+				todoListApi.getTodoListQueryOptions().queryKey,
+				(old) =>
+					old?.map((todo) =>
+						todo.id === newTodo.id ? { ...todo, ...newTodo } : todo
+					)
+			)
 
-			// Вернуть объект контекста со значением снимка
-			return { previousTodos }
+			return { previousTodos } // Предыдущие тудушкипередали в контекст
 		},
 		// Если мутация не удалась,
 		// используйте контекст, возвращенный из onMutate, для отката
-		onError: (err, newTodo, context) => {
-			queryClient.setQueryData(['todos'], context.previousTodos)
+		onError: (_, __, context) => {
+			if (context) {
+				queryClient.setQueryData(
+					todoListApi.getTodoListQueryOptions().queryKey,
+					context.previousTodos
+				)
+			}
 		},
 		// Всегда выполнять повторную выборку после ошибки или успеха:
 		onSettled: () => {
-			queryClient.invalidateQueries({ queryKey: ['todos'] })
+			queryClient.invalidateQueries({ queryKey: [todoListApi.baseKey] })
 		},
 	})
 

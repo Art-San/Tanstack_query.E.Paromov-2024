@@ -332,19 +332,19 @@
     {
       "id": "53",
       "text": "todo-53",
-      "done": false,
+      "done": true,
       "userId": "1"
     },
     {
       "id": "54",
       "text": "todo-54",
-      "done": false,
+      "done": true,
       "userId": "1"
     },
     {
       "id": "55",
       "text": "todo-55",
-      "done": false,
+      "done": true,
       "userId": "1"
     },
     {
@@ -356,7 +356,7 @@
     {
       "id": "57",
       "text": "todo-57",
-      "done": false,
+      "done": true,
       "userId": "1"
     },
     {

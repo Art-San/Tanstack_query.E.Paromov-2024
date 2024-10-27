@@ -69,6 +69,8 @@ export const todoListApi = {
 		return jsonApiInstance<TodoDto>(`/tasks/${data.id}`, {
 			method: 'PATCH',
 			json: data,
+		}).then(() => {
+			throw new Error()
 		})
 	},
 	deleteTodo: (id: string) => {

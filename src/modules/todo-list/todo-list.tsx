@@ -3,6 +3,7 @@
 import { useTodoList } from './use-todo-list'
 import { useCreateTodo } from './use-create-todo'
 import { useDeleteTodo } from './use-delete-todo'
+import { useToggleTodo } from './use-toggle-todo'
 
 // 22:32
 // 42:03 -- с этой может чуть дальше разбор isPending, isFetching, isLoading, status, fetchStatus
@@ -18,6 +19,7 @@ export function TodoList() {
 	// const { handleCreate, isPending } = useCreateTodo()
 	const createTodo = useCreateTodo()
 	const deleteTodo = useDeleteTodo()
+	const { toggleTodo } = useToggleTodo()
 
 	if (isLoading) {
 		// isLoading нет данных но запрос идет
@@ -58,6 +60,11 @@ export function TodoList() {
 							className="flex justify-between border border-slate-300 rounded p-3"
 							key={todo.id}
 						>
+							<input
+								type="checkbox"
+								checked={todo.done}
+								onChange={() => toggleTodo(todo.id, todo.done)}
+							/>
 							{todo.text}
 							<button
 								disabled={deleteTodo.getIsPending(todo.id)}

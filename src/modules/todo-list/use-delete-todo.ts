@@ -8,22 +8,13 @@ export function useDeleteTodo() {
 		mutationFn: todoListApi.deleteTodo,
 
 		onSettled() {
-			queryClient.invalidateQueries(todoListApi.getTodoListQueryOptions())
+			queryClient.invalidateQueries({ queryKey: [todoListApi.baseKey] })
 		},
 		async onSuccess(_, variables) {
-			// 1. "_" -- data результат запроса
-			// 2. variables это то что предаем в мутацию в данном случае id
-			// 3. context расмотрим позже
-			const todos = queryClient.getQueryData(
-				todoListApi.getTodoListQueryOptions().queryKey
+			queryClient.setQueryData(
+				todoListApi.getTodoListQueryOptions().queryKey,
+				(todos) => todos?.filter((item) => item.id !== variables)
 			)
-
-			if (todos) {
-				queryClient.setQueryData(
-					todoListApi.getTodoListQueryOptions().queryKey,
-					todos.filter((item) => item.id !== variables)
-				)
-			}
 		},
 	})
 
@@ -38,10 +29,3 @@ export function useDeleteTodo() {
 			deleteTodoMutation.isPending && deleteTodoMutation.variables === id,
 	}
 }
-
-// if (todos) {
-// 	queryClient.setQueryData(
-// 		todoListApi.getTodoListQueryOptions().queryKey,
-// 		todos.filter((item) => item.id !== variables)
-// 	)
-// }
