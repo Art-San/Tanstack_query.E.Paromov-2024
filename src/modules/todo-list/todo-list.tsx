@@ -12,6 +12,7 @@ import { useToggleTodo } from './use-toggle-todo'
 // 1:44:25
 // 1:54:30
 // 2:12:26
+// 2:25:00 Редакс
 
 export function TodoList() {
 	const { error, todoItems, isLoading } = useTodoList()
