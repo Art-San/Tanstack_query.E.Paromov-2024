@@ -26,7 +26,7 @@ export const loginThunk =
 			localStorage.setItem('userId', user.id)
 		}
 
-		// dispatch(authSlice.actions.setError("Пароль и Логин неверные"));
+		dispatch(authSlice.actions.setError('Пароль и Логин неверные'))
 	}
 
 export const useLoginLoading = () =>

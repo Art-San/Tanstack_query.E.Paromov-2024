@@ -20,7 +20,6 @@ export function TodoList() {
 	const { data } = useUser()
 	const { error, todoItems, isLoading } = useTodoList()
 
-	// const { handleCreate, isPending } = useCreateTodo()
 	const createTodo = useCreateTodo()
 	const deleteTodo = useDeleteTodo()
 	const { toggleTodo } = useToggleTodo()
@@ -50,7 +49,7 @@ export function TodoList() {
 					name="text"
 				/>
 				<button
-					disabled={createTodo.isPending}
+					disabled={createTodo.isLoading}
 					className=" rounded p-2 border border-teal-500 disabled:opacity-50 "
 				>
 					Создать
