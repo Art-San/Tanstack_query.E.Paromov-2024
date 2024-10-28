@@ -15,6 +15,7 @@ import { useUser } from '../auth/use-user'
 // 2:12:26
 // 2:25:00 Редакс
 // 2:45:00
+// 3.24:00 offline
 
 export function TodoList() {
 	const { data } = useUser()
