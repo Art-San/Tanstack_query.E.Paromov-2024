@@ -9,6 +9,7 @@ import { store } from '../shared/redux'
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister'
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
 import { onlineManager } from '@tanstack/react-query'
+import { Loader } from './loader'
 
 onlineManager.setOnline(navigator.onLine) // иногда нетак работает как хотелось бы, я так понял
 
@@ -29,7 +30,9 @@ createRoot(document.getElementById('root')!).render(
 			}}
 		>
 			<Provider store={store}>
-				<App />
+				<Loader>
+					<App />
+				</Loader>
 			</Provider>
 			<ReactQueryDevtools initialIsOpen={false} />
 		</PersistQueryClientProvider>

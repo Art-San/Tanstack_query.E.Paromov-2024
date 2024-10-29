@@ -12,7 +12,7 @@ export function useUser() {
 	return { data, isLoading }
 }
 
-export function useSuspenceUser() {
+export function useSuspenseUser() {
 	const userId = useSelector(authSlice.selectors.userId)
 	return useSuspenseQuery({
 		...authApi.getUserById(userId!),
