@@ -8,7 +8,7 @@ import { authApi } from '../auth/api'
 
 export const createTodoThunk =
 	(text: string): AppThunk =>
-	async (dispatch, getState) => {
+	async (_dispatch, getState) => {
 		const userId = authSlice.selectors.userId(getState())
 
 		if (!userId) {

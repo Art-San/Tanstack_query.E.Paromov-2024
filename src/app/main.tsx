@@ -8,6 +8,9 @@ import { queryClient } from '../shared/api/query-client'
 import { store } from '../shared/redux'
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister'
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
+import { onlineManager } from '@tanstack/react-query'
+
+onlineManager.setOnline(navigator.onLine) // иногда нетак работает как хотелось бы, я так понял
 
 const persister = createSyncStoragePersister({
 	storage: window.localStorage,
