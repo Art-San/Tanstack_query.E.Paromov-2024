@@ -21,12 +21,14 @@ import { useSuspenseUser, useUser } from '../auth/use-user'
 // 3:56:00
 
 export function TodoList() {
-	const { data } = useSuspenseUser()
-	// const { data } = useUser()
+	// const { data: todoItems, refetch } = useSuspenseQuery({
+	// 	...todoListApi.getTodoListQueryOptions({ userId: user.data.id }),
+	// 	select: (data) => [...data].reverse(),
+	// })
 
 	const { todoItems } = useTodoList()
-	// const { error, todoItems, isLoading } = useTodoList()
-
+	const { data } = useSuspenseUser()
+	// const { data } = useUser()
 	const createTodo = useCreateTodo()
 	const deleteTodo = useDeleteTodo()
 	const { toggleTodo } = useToggleTodo()

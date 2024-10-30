@@ -1,9 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { todoListApi } from './api'
+import { useSuspenseUser } from '../auth/use-user'
 
 export function useDeleteTodo() {
 	const queryClient = useQueryClient()
 
+	const user = useSuspenseUser()
 	const deleteTodoMutation = useMutation({
 		mutationFn: todoListApi.deleteTodo,
 
@@ -12,7 +14,7 @@ export function useDeleteTodo() {
 		},
 		async onSuccess(_, variables) {
 			queryClient.setQueryData(
-				todoListApi.getTodoListQueryOptions().queryKey,
+				todoListApi.getTodoListQueryOptions({ userId: user.data.id }).queryKey,
 				(todos) => todos?.filter((item) => item.id !== variables)
 			)
 		},

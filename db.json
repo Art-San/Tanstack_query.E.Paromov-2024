@@ -8,12 +8,12 @@
     {
       "id": "2",
       "login": "bob",
-      "password": "123456-2"
+      "password": "123"
     },
     {
-      "id": "1",
+      "id": "3",
       "login": "carol",
-      "password": "123456-3"
+      "password": "123"
     }
   ],
   "tasks": [
@@ -384,40 +384,22 @@
       "userId": "1"
     },
     {
-      "id": "rF1c4x7G-3GansXNS29Kj",
+      "id": "WQJ5gr7EoQjCwa9UQBm5y",
       "done": false,
-      "text": "нет интернет. Owner: alice",
-      "userId": "1"
+      "text": "4444. Owner: bob",
+      "userId": "2"
     },
     {
-      "id": "LsTrGb7CYIbEq0qioyrq0",
+      "id": "LAanHgBCXvXya8XUHlTgo",
       "done": false,
-      "text": "vvvv. Owner: alice",
-      "userId": "1"
+      "text": "bob task. Owner: bob",
+      "userId": "2"
     },
     {
-      "id": "AaTKAHoV-TdxMp86bnHI7",
+      "id": "OiuhqSfMP-M3z1NIz3Gs1",
       "done": false,
-      "text": "7777. Owner: alice",
-      "userId": "1"
-    },
-    {
-      "id": "EIoHbMGGEaDXKpFYZCxMS",
-      "done": false,
-      "text": "67777. Owner: alice",
-      "userId": "1"
-    },
-    {
-      "id": "8lxoFxIRobITb1tkxAkUo",
-      "done": false,
-      "text": "rrrr7777. Owner: alice",
-      "userId": "1"
-    },
-    {
-      "id": "bpdP98cOsHmPFgkBiaPn0",
-      "done": false,
-      "text": "ffff56677. Owner: alice",
-      "userId": "1"
+      "text": "первая таска . Owner: carol",
+      "userId": "3"
     }
   ]
 }

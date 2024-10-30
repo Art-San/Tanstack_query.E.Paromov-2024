@@ -33,11 +33,11 @@ export const createTodoThunk =
 		})
 
 		const prevTasks = queryClient.getQueryData(
-			todoListApi.getTodoListQueryOptions().queryKey
+			todoListApi.getTodoListQueryOptions({ userId }).queryKey
 		)
 
 		queryClient.setQueryData(
-			todoListApi.getTodoListQueryOptions().queryKey,
+			todoListApi.getTodoListQueryOptions({ userId }).queryKey,
 			(tasks) => [...(tasks ?? []), newTodo]
 		)
 
@@ -47,7 +47,7 @@ export const createTodoThunk =
 			}).mutate(newTodo)
 		} catch (e) {
 			queryClient.setQueryData(
-				todoListApi.getTodoListQueryOptions().queryKey,
+				todoListApi.getTodoListQueryOptions({ userId }).queryKey,
 				prevTasks
 			)
 		} finally {
