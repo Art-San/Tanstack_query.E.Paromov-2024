@@ -5,6 +5,8 @@ import { useCreateTodo } from './use-create-todo'
 import { useDeleteTodo } from './use-delete-todo'
 import { useToggleTodo } from './use-toggle-todo'
 import { useSuspenseUser, useUser } from '../auth/use-user'
+import { todoListApi } from './api'
+import { useSuspenseQuery } from '@tanstack/react-query'
 
 // 22:32
 // 42:03 -- с этой может чуть дальше разбор isPending, isFetching, isLoading, status, fetchStatus
@@ -21,10 +23,12 @@ import { useSuspenseUser, useUser } from '../auth/use-user'
 // 3:56:00
 
 export function TodoList() {
-	// const { data: todoItems, refetch } = useSuspenseQuery({
-	// 	...todoListApi.getTodoListQueryOptions({ userId: user.data.id }),
-	// 	select: (data) => [...data].reverse(),
-	// })
+	useSuspenseQuery({
+		...todoListApi.getTodoListQueryOptions({ userId: '3' }),
+	})
+	useSuspenseQuery({
+		...todoListApi.getTodoListQueryOptions({ userId: '2' }),
+	})
 
 	const { todoItems } = useTodoList()
 	const { data } = useSuspenseUser()

@@ -10,12 +10,15 @@ import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persist
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
 import { onlineManager } from '@tanstack/react-query'
 import { Loader } from './loader'
+import { prefetchAuth } from '../modules/auth/prefetch'
 
 onlineManager.setOnline(navigator.onLine) // иногда нетак работает как хотелось бы, я так понял
 
 const persister = createSyncStoragePersister({
 	storage: window.localStorage,
 })
+
+prefetchAuth()
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
@@ -38,17 +41,3 @@ createRoot(document.getElementById('root')!).render(
 		</PersistQueryClientProvider>
 	</StrictMode>
 )
-
-//  <PersistQueryClientProvider
-// client={queryClient}
-// persistOptions={{ persister }}
-// onSuccess={() => {
-// 	// resume mutations after initial restore from localStorage was successful
-// 	queryClient.resumePausedMutations().then(() => {
-// 		queryClient.invalidateQueries()
-// 	})
-// }}
-// >
-// <Movies />
-// <ReactQueryDevtools initialIsOpen />
-// </PersistQueryClientProvider>
