@@ -1,21 +1,13 @@
-import {
-	keepPreviousData,
-	useQuery,
-	useInfiniteQuery,
-} from '@tanstack/react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import { todoListApi } from './api'
 import { useCallback, useRef, useState } from 'react'
-
 // https://www.youtube.com/watch?v=K5-a-wjURrc&t=2523s
 
-// 22:32
-// 42:03 -- с этой может чуть дальше разбор isPending, isFetching, isLoading, status, fetchStatus
-// 1:03:18
 export function TodoList() {
 	const cursorRef = useIntersection(() => {
 		fetchNextPage()
 	})
-	const [enabled, setEnabled] = useState(true)
+	const [enabled, setEnabled] = useState(false)
 	const {
 		data: todoItems,
 		error,
@@ -25,15 +17,10 @@ export function TodoList() {
 		hasNextPage,
 		isFetchingNextPage,
 	} = useInfiniteQuery({
-		queryKey: ['tasks', 'list'],
-		queryFn: (meta) => todoListApi.getTodoList({ page: meta.pageParam }, meta),
-		// enabled: enabled,
-		initialPageParam: 1,
-		getNextPageParam: (res) => res.next,
-		select: (result) => result.pages.flatMap((page) => page.data),
-		// select: (result) => result.pages.map((page) => page.data).flat(), // flat из массива массивов делает плоский массив
+		...todoListApi.getTodoListInfinityQueryOptions(),
+		enabled: false,
 	})
-	console.log(23, todoItems)
+
 	if (isLoading) {
 		// isLoading нет данных но запрос идет
 		return <div className="">...Loading</div>
