@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useTodoList } from './use-todo-list'
 // https://www.youtube.com/watch?v=K5-a-wjURrc&t=2523s
 
