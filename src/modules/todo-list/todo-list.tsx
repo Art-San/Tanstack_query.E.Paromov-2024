@@ -1,9 +1,11 @@
 import { useTodoList } from './use-todo-list'
 import { useCreateTodo } from './use-create-todo'
+import { useDeleteTodo } from './use-delete-todo'
 
 export function TodoList() {
 	const { todoItems, error, isLoading } = useTodoList()
 	const createTodo = useCreateTodo()
+	const deleteTodo = useDeleteTodo()
 
 	if (isLoading) {
 		// isLoading нет данных но запрос идет
@@ -30,13 +32,21 @@ export function TodoList() {
 				</button>
 			</form>
 			<div>
-				{todoItems?.map((todo) => {
-					return (
-						<div className="border border-slate-300 rounded p-3" key={todo.id}>
-							{todo.text}
-						</div>
-					)
-				})}
+				{todoItems?.map((todo) => (
+					<div
+						className="flex justify-between border border-slate-300 rounded p-3"
+						key={todo.id}
+					>
+						{todo.text}
+						<button
+							disabled={deleteTodo.getIsPending(todo.id)}
+							onClick={() => deleteTodo.handleDelete(todo.id)}
+							className=" text-rose-500 font-bold disabled:opacity-30"
+						>
+							удалить
+						</button>
+					</div>
+				))}
 			</div>
 		</div>
 	)

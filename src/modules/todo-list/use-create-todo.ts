@@ -13,11 +13,11 @@ export function useCreateTodo() {
 		onError: () => {
 			console.log('Произошла ошибка')
 		},
-		onSettled() {
-			queryClient.invalidateQueries({ queryKey: [todoListApi.baseKey] })
+		async onSettled() {
+			await queryClient.invalidateQueries(todoListApi.getTodoListQueryOptions())
 		},
-		// async onSettled() {
-		// 	await queryClient.invalidateQueries({ queryKey: [todoListApi.baseKey] })
+		// onSettled() {
+		// 	queryClient.invalidateQueries({ queryKey: [todoListApi.baseKey] })
 		// },
 	})
 
@@ -36,7 +36,7 @@ export function useCreateTodo() {
 			}
 			// {
 			// 	onSuccess: () => {
-			// 		queryClient.invalidateQueries(todoListApi.getTodoListQueryOptions())
+			// 		queryClient.invalidateQueries({ queryKey: ['tasks', 'list'] })
 			// 	},
 			// }
 		)
